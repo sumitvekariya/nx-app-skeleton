@@ -2,13 +2,203 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "",
-  "projects": {},
+  "projects": {
+    "family-tree": {
+      "root": "apps/family-tree/",
+      "sourceRoot": "apps/family-tree/src",
+      "projectType": "application",
+      "prefix": "nx-app-skeleton",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/family-tree",
+            "index": "apps/family-tree/src/index.html",
+            "main": "apps/family-tree/src/main.ts",
+            "polyfills": "apps/family-tree/src/polyfills.ts",
+            "tsConfig": "apps/family-tree/tsconfig.app.json",
+            "assets": [
+              "apps/family-tree/src/favicon.ico",
+              "apps/family-tree/src/assets"
+            ],
+            "styles": [
+              "apps/family-tree/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/family-tree/src/environments/environment.ts",
+                  "with": "apps/family-tree/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "family-tree:build",
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "family-tree:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "family-tree:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "apps/family-tree/src/test.ts",
+            "polyfills": "apps/family-tree/src/polyfills.ts",
+            "tsConfig": "apps/family-tree/tsconfig.spec.json",
+            "karmaConfig": "apps/family-tree/karma.conf.js",
+            "styles": [
+              "apps/family-tree/src/styles.scss"
+            ],
+            "scripts": [],
+            "assets": [
+              "apps/family-tree/src/favicon.ico",
+              "apps/family-tree/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/family-tree/tsconfig.app.json",
+              "apps/family-tree/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "family-tree-e2e": {
+      "root": "apps/family-tree-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "apps/family-tree-e2e/protractor.conf.js",
+            "devServerTarget": "family-tree:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "family-tree:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/family-tree-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "app-api": {
+      "root": "apps/app/api",
+      "sourceRoot": "apps/app/api/src",
+      "projectType": "application",
+      "prefix": "app-api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/builders:node-build",
+          "options": {
+            "outputPath": "dist/apps/app/api",
+            "main": "apps/app/api/src/main.ts",
+            "tsConfig": "apps/app/api/tsconfig.app.json",
+            "assets": [
+              "apps/app/api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "fileReplacements": [
+                {
+                  "replace": "apps/app/api/src/environments/environment.ts",
+                  "with": "apps/app/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/builders:node-execute",
+          "options": {
+            "buildTarget": "app-api:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/app/api/tsconfig.app.json",
+              "apps/app/api/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/app/api/jest.config.js",
+            "tsConfig": "apps/app/api/tsconfig.spec.json"
+          }
+        }
+      }
+    }
+  },
   "cli": {
     "warnings": {
       "typescriptMismatch": false,
       "versionMismatch": false
     },
     "defaultCollection": "@nrwl/schematics"
-    
-  }
+  },
+  "defaultProject": "family-tree"
 }

@@ -7,5 +7,17 @@
     "tslint.json": "*",
     "nx.json": "*"
   },
-  "projects": {}
+  "projects": {
+    "family-tree": {
+      "tags": []
+    },
+    "family-tree-e2e": {
+      "tags": []
+    },
+    "app-api": {
+      "tags": [
+        "apilib"
+      ]
+    }
+  }
 }
