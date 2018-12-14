@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
+    "tsc": "tsc --project ./apps/app/api/tsconfig.app.json && node ./dist/apps/app/api/index.js",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
