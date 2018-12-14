@@ -3,12 +3,14 @@ export interface Person {
   middleName: string;
   lastName: string;
   age: number;
+  sex: 'male' | 'female';
+  number: string;
   birthDate: Date;
   alive: boolean;
   deathDate: Date;
   children: Person[];
-  dad: Person;
-  mom: Person;
+  dad: string;
+  mom: string;
   _id: string;
 }
 
